@@ -3,7 +3,7 @@
     <v-app-bar
       app
     >
-      <v-toolbar-title>ALP Case Study</v-toolbar-title>
+      <v-toolbar-title>Crypto Ticker</v-toolbar-title>
     </v-app-bar>
 
     <v-main>
