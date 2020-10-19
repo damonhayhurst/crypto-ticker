@@ -26,6 +26,7 @@
             elevation="2"
             rounded
             @click="save"
+            color="info"
           >Save</v-btn>
         </v-row>
         <v-row
