@@ -8,6 +8,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
+var cors = require('cors')
+app.use(
+    cors({
+        credentials: true,
+        origin: [
+            'http://localhost:8080'
+        ]
+    }),
+)
+
 app.post('/save', function(req) {
     const row = req.body
     fs.readFile('db.json', function (err, data) {

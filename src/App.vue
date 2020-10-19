@@ -3,13 +3,7 @@
     <v-app-bar
       app
     >
-      <v-toolbar-title>Application</v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
+      <v-toolbar-title>ALP Case Study</v-toolbar-title>
     </v-app-bar>
 
     <v-main>
@@ -23,15 +17,30 @@
             <CryptoCard :list=list ref="cryptoCard"/>
           </v-col>
         </v-row>
-        <v-row
+          <v-row
           align="center"
           justify="center"
+          class="save-btn"
         >
           <v-btn
             elevation="2"
             rounded
             @click="save"
           >Save</v-btn>
+        </v-row>
+        <v-row
+          align="center"
+          justify="center"
+          class="save-btn"
+
+        >
+          <v-alert
+            color="blue"
+            dense
+            outlined
+            type="success"
+            :key="lastSaved"
+          >Last saved to database at {{lastSaved}}</v-alert>
         </v-row>
       </v-container>
     </v-main>
@@ -55,7 +64,8 @@ export default {
         'ethereum',
         'dogecoin',
         'ripple'
-      ]
+      ],
+      lastSaved: ""
     }
   },
   created () {
@@ -85,13 +95,16 @@ export default {
       })
     },
     save() {
-      this.currentTime = new Date()
-      this.newDbRow = {created_at: this.currentTime.getUTCDate(), coins: []}
+      this.lastSaved = new Date().toString()
+      this.coins = {}
       for (var card of this.$refs.cryptoCard) {
-        this.newDbRow.coins.push({name: card.name, price: card.price})
+        this.coins[card.name] = card.price
       }
-      const data = JSON.stringify(this.newDbRow)
-      axios.post('http://localhost:5000/save', data)
+      axios.post('http://localhost:5000/save', {created_at: this.lastSaved, coins: this.coins}, {
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        }
+      })
     }
   }
 }
@@ -106,4 +119,6 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+.save-btn {
+  padding-top: 50px}
 </style>
