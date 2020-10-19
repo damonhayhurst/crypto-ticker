@@ -9,8 +9,8 @@
               item-text="name"
               item-value="id"></v-select>
           </div>
-          <v-list-item-title class="headline mb-1" ref="price">
-            {{price}}
+          <v-list-item-title class="headline mb-1">
+            <span ref="price">{{price}}</span><span style="float: right; opacity: 0.7">$</span> 
           </v-list-item-title>
 
         </v-list-item-content>

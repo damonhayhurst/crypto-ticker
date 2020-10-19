@@ -31,8 +31,8 @@
         <v-row
           align="center"
           justify="center"
-          class="save-btn"
-
+          class="save-alert"
+          v-if="lastSaved !== ''"
         >
           <v-alert
             color="blue"
@@ -70,7 +70,7 @@ export default {
   },
   created () {
     this.getCoinList()
-    this.interval = setInterval(() => this.getPrices(), 10000);
+    this.interval = setInterval(() => this.getPrices(), 60000);
   },
   mounted () {
     this.preSelectCryptos()
@@ -120,5 +120,9 @@ export default {
   margin-top: 60px;
 }
 .save-btn {
-  padding-top: 50px}
+  padding-top: 50px
+}
+.save-alert {
+  padding-top: 30px;
+}
 </style>
